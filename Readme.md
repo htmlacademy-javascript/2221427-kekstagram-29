@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Лев Елистратов](https://up.htmlacademy.ru/javascript/29/user/2221427).
-* Наставник: `Неизвестно`.
+* Наставник: [Антон Попов](https://htmlacademy.ru/profile/joker).
 
 ---
 
