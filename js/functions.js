@@ -8,7 +8,7 @@ const checkStringLength = (string, length) => {
 checkStringLength('Привет, друг. Как дела?', 40);
 
 // Функция проверяющая является ли строка палиндромом
-function isPalindrome(string) {
+const isPalindrome = (string) => {
   string = string.toLowerCase().replaceAll(' ','');
   let newString = '';
   for (let i = string.length - 1; i >= 0; --i) {
@@ -17,5 +17,19 @@ function isPalindrome(string) {
     return true;
   }
   return false;
-}
+};
+
 isPalindrome('Лёша на полке клопа нашёл ');
+
+// Функция извлекающая из строки цифры
+
+const extractNumbers = (string) => {
+  const numberArray = string.match(/\d+/g);
+  if (numberArray === null) {
+    return 'NaN';
+  }
+  return numberArray.join('').replace(/^0+/, '');
+};
+extractNumbers('Tak3 m3 to S4nTr0p3z');
+
+
