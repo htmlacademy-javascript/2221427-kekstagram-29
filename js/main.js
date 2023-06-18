@@ -1,4 +1,4 @@
-import {createPhotoArray} from './mock-functions.js';
+import {createPhotoArray} from './functions.js';
 
 console.log(createPhotoArray);
 
