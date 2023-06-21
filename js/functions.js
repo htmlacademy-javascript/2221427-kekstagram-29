@@ -72,5 +72,22 @@ const createPhotoObject = (index) => ({
 
 const createPhotoArray = Array.from({length: TOTAL_PHOTO_AMOUNT}, (x, index) => createPhotoObject(index));
 
-export {createPhotoArray};
 
+//Функцию списал у соседа по парте) Как она работает разобрался, чесное пионерское!
+const hoursToNumber = (time) => parseInt(time.split(':')[0], 10);
+
+const minutesToNumber = (time) =>parseInt(time.split(':')[1], 10) / 60;
+
+const isWithinTheWorkingDay = (start, end, meetingStart, duration) => {
+  const startTime = hoursToNumber(start) + minutesToNumber(start);
+  const endTime = hoursToNumber(end) + minutesToNumber(end);
+  const meetingStartHours = hoursToNumber(meetingStart) + minutesToNumber(meetingStart);
+  const meeingEndsAt = meetingStartHours + duration / 60;
+
+  return meeingEndsAt <= endTime && meetingStartHours >= startTime;
+};
+
+// eslint-disable-next-line no-console
+console.log(isWithinTheWorkingDay('8:00', '17:30', '08:00', 900));
+
+export {createPhotoArray};
