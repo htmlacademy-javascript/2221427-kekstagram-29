@@ -1,4 +1,4 @@
-import {commentsAutorNames, photoDescriptionArray, photoCommentsArray} from './moks.js';
+import {commentsAutorNames, photoDescriptionArray, photoCommentsArray} from './mocks/mocks.js';
 import {TOTAL_PHOTO_AMOUNT, LIKES_AMOUNT, COMMENTS_AMOUNT} from './consts.js';
 
 
