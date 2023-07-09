@@ -1,5 +1,4 @@
-import {createPhotoArray} from './functions.js';
+import {createPhotos} from './mocks/mock-functions.js';
 
 // eslint-disable-next-line no-console
-console.log(createPhotoArray);
-
+console.log(createPhotos());
