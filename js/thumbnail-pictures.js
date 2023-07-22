@@ -6,7 +6,7 @@ const picturesTemlpate = document.querySelector('#picture').content.querySelecto
 
 const renderThumbnailsPictures = (drawOtherPhotos) => {
   const pictureContainerFragment = document.createDocumentFragment();
-  drawOtherPhotos().forEach(({url, description, likes, comments}) => {
+  drawOtherPhotos.forEach(({url, description, likes, comments}) => {
     const userPhotoElement = picturesTemlpate.cloneNode(true);
     userPhotoElement.querySelector('.picture__img').src = url;
     userPhotoElement.querySelector('.picture__img').alt = description;
