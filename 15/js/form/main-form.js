@@ -50,12 +50,6 @@ function checkHashtagsReapitings(value) {
   return tagArray.length === new Set(tagArray).size;
 }
 
-// function onFormSubmit(evt) {
-//   if (!pristine.validate()) {
-//     evt.preventDefault();
-//   }
-// }
-
 function addPristineValidation() {
   uploaFiledForm.addEventListener('submit', setUserFormSubmit);
   pristine.addValidator(hashtagsTextField, validateHashtagsAmount, `хештегов должно быть не более ${VALIDATE_MAX_HASHTAG_COUNT}`);
@@ -121,29 +115,26 @@ const unBlockSubmitButton = () => {
   submitButton.textContent = 'Опубликовать';
 };
 
-function setUserFormSubmit (onSuccess) {
-  uploaFiledForm.addEventListener('submit', (evt) => {
+function setUserFormSubmit (evt) {
 
-    const isValid = pristine.validate();
-    evt.preventDefault();
-    if (isValid) {
-      blockSubmitButton();
-      sendData(
-        () => {
-          onSuccess();
-          showSuccessMessagePopup();
-          unBlockSubmitButton();
-          closeModalWindow();
-        },
-        () => {
-          showErrorMessagePopup();
-          unBlockSubmitButton();
-        },
-        new FormData(evt.target)
-      );
-    }
-  });
+  const isValid = pristine.validate();
+  evt.preventDefault();
+  if (isValid) {
+    blockSubmitButton();
+    sendData(
+      () => {
+        showSuccessMessagePopup();
+        unBlockSubmitButton();
+        closeModalWindow();
+      },
+      () => {
+        showErrorMessagePopup();
+        unBlockSubmitButton();
+      },
+      new FormData(evt.target)
+    );
+  }
 }
 
 
-export {addValidationAndListeners, setUserFormSubmit};
+export {addValidationAndListeners};
