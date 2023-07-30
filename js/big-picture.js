@@ -1,4 +1,4 @@
-import {isEscapeKey} from './functions.js';
+import {isEscapeKey} from './tools.js';
 
 const COMMENTS__LOAD_COUNT = 5;
 

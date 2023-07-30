@@ -1,6 +1,8 @@
-import {createPhotos} from './mocks/mock-functions.js';
 import {renderThumbnailsPictures} from './thumbnail-pictures.js';
-renderThumbnailsPictures(createPhotos());
-import {submitForm} from './form/main-form.js';
-submitForm();
+import {addValidationAndListeners,setUserFormSubmit} from './form/main-form.js';
+import {getData} from './api.js';
 
+getData((photos) => {
+  renderThumbnailsPictures(photos);
+});
+setUserFormSubmit(addValidationAndListeners);
