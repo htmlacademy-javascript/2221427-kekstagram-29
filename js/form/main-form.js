@@ -1,6 +1,8 @@
-import {isEscapeKey} from '../functions.js';
+import {isEscapeKey} from '../tools.js';
 import {resetPictureScale} from './edit-scale.js';
 import {resetEffects} from './edit-effects.js';
+import {showErrorMessagePopup, showSuccessMessagePopup} from '../alert-messages.js';
+import {sendData} from '../api.js';
 
 const VALIDATE_MAX_HASHTAG_COUNT = 5;
 const VALIDATE_DESCRIPTION_TEXT_MAX_LENGTH = 140;
@@ -11,6 +13,7 @@ const imageUploadOverlay = uploaFiledForm.querySelector('.img-upload__overlay');
 const cancelButtonElement = imageUploadOverlay.querySelector('#upload-cancel');
 const hashtagsTextField = imageUploadOverlay.querySelector('.text__hashtags');
 const commentTextField = imageUploadOverlay.querySelector('.text__description');
+const submitButton = uploaFiledForm.querySelector('.img-upload__submit');
 
 const pristine = new Pristine(uploaFiledForm, {
   classTo: 'img-upload__field-wrapper',
@@ -47,14 +50,8 @@ function checkHashtagsReapitings(value) {
   return tagArray.length === new Set(tagArray).size;
 }
 
-function onFormSubmit(evt) {
-  if (!pristine.validate()) {
-    evt.preventDefault();
-  }
-}
-
 function addPristineValidation() {
-  uploaFiledForm.addEventListener('submit', onFormSubmit);
+  uploaFiledForm.addEventListener('submit', setUserFormSubmit);
   pristine.addValidator(hashtagsTextField, validateHashtagsAmount, `хештегов должно быть не более ${VALIDATE_MAX_HASHTAG_COUNT}`);
   pristine.addValidator(hashtagsTextField, checkNormalizedHashtags, 'хештег неправильный, либо содержит более 20 символов');
   pristine.addValidator(hashtagsTextField, checkHashtagsReapitings, 'повторять хештеги запрещено');
@@ -63,9 +60,11 @@ function addPristineValidation() {
 
 function onDocumentEscKeydown(evt) {
   if (isEscapeKey(evt)) {
-    evt.preventDefault();
     if (!(hashtagsTextField === document.activeElement || commentTextField === document.activeElement)) {
-      closeModalWindow();
+      if (document.querySelector('.error') === null) {
+        evt.preventDefault();
+        closeModalWindow();
+      }
     }
   }
 }
@@ -100,8 +99,42 @@ uploadFileField.addEventListener('change', onUploadFileFieldChange);
 cancelButtonElement.addEventListener('click', onCloseButtonClick);
 
 
-function submitForm () {
+function addValidationAndListeners () {
   uploadFileField.addEventListener('submit', openModalWindow);
   addPristineValidation();
 }
-export {submitForm};
+
+
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Публикую...';
+};
+
+const unBlockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Опубликовать';
+};
+
+function setUserFormSubmit (evt) {
+
+  const isValid = pristine.validate();
+  evt.preventDefault();
+  if (isValid) {
+    blockSubmitButton();
+    sendData(
+      () => {
+        showSuccessMessagePopup();
+        unBlockSubmitButton();
+        closeModalWindow();
+      },
+      () => {
+        showErrorMessagePopup();
+        unBlockSubmitButton();
+      },
+      new FormData(evt.target)
+    );
+  }
+}
+
+
+export {addValidationAndListeners};
