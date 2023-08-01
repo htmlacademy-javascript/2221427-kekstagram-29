@@ -1,11 +1,12 @@
+const VALIDATE_MAX_HASHTAG_COUNT = 5;
+const VALIDATE_DESCRIPTION_TEXT_MAX_LENGTH = 140;
+
 import {isEscapeKey} from '../tools.js';
 import {resetPictureScale} from './edit-scale.js';
 import {resetEffects} from './edit-effects.js';
 import {showErrorMessagePopup, showSuccessMessagePopup} from '../alert-messages.js';
 import {sendData} from '../api.js';
 
-const VALIDATE_MAX_HASHTAG_COUNT = 5;
-const VALIDATE_DESCRIPTION_TEXT_MAX_LENGTH = 140;
 
 const uploaFiledForm = document.querySelector('.img-upload__form');
 const uploadFileField = uploaFiledForm.querySelector('#upload-file');

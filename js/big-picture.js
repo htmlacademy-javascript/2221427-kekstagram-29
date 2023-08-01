@@ -1,6 +1,6 @@
-import {isEscapeKey} from './tools.js';
-
 const COMMENTS__LOAD_COUNT = 5;
+
+import {isEscapeKey} from './tools.js';
 
 const bigPhotoElement = document.querySelector('.big-picture');
 const closePhotoElement = bigPhotoElement.querySelector('.big-picture__cancel');
