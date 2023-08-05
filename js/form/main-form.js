@@ -6,15 +6,28 @@ import {resetPictureScale} from './edit-scale.js';
 import {resetEffects} from './edit-effects.js';
 import {showErrorMessagePopup, showSuccessMessagePopup} from '../alert-messages.js';
 import {sendData} from '../api.js';
+import {FILE_TYPES} from '../tools.js';
 
 
 const uploaFiledForm = document.querySelector('.img-upload__form');
+const uploadInput = uploaFiledForm.querySelector('.img-upload__input');
 const uploadFileField = uploaFiledForm.querySelector('#upload-file');
 const imageUploadOverlay = uploaFiledForm.querySelector('.img-upload__overlay');
 const cancelButtonElement = imageUploadOverlay.querySelector('#upload-cancel');
 const hashtagsTextField = imageUploadOverlay.querySelector('.text__hashtags');
 const commentTextField = imageUploadOverlay.querySelector('.text__description');
 const submitButton = uploaFiledForm.querySelector('.img-upload__submit');
+const userPhotoPreview = imageUploadOverlay.querySelector('.img-upload__preview img');
+
+
+function displayUserPhoto() {
+  const file = uploadInput.files[0];
+  const fileName = file.name.toLowerCase();
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+  if (matches) {
+    userPhotoPreview.src = URL.createObjectURL(file);
+  }
+}
 
 const pristine = new Pristine(uploaFiledForm, {
   classTo: 'img-upload__field-wrapper',
@@ -75,6 +88,7 @@ function openModalWindow() {
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentEscKeydown);
   cancelButtonElement.addEventListener('click', onCloseButtonClick);
+  displayUserPhoto();
 }
 
 function closeModalWindow() {
