@@ -9,18 +9,18 @@ const EFFECTS_LIST = [
 
 const DEFAULT_EFFECT = EFFECTS_LIST[0];
 
-const uploaFiledForm = document.querySelector('.img-upload__form');
+const uploaFormElement = document.querySelector('.img-upload__form');
 const previewImageElement = document.querySelector('.img-upload__preview img');
-const sliderContainer = document.querySelector('.effect-level');
-const effectLevelValue = document.querySelector('.effect-level__value');
-const sliderElement = sliderContainer.querySelector('.effect-level__slider');
+const sliderContainerElement = document.querySelector('.effect-level');
+const effectLevelValueElement = document.querySelector('.effect-level__value');
+const sliderElement = sliderContainerElement.querySelector('.effect-level__slider');
 
 let chosenEffect = DEFAULT_EFFECT;
 
 const isDefault = () => chosenEffect === DEFAULT_EFFECT;
 
 const updateSlider = () => {
-  sliderContainer.classList.remove('hidden');
+  sliderContainerElement.classList.remove('hidden');
   sliderElement.noUiSlider.updateOptions({
     range: {
       min: chosenEffect.min,
@@ -31,7 +31,7 @@ const updateSlider = () => {
   });
 
   if(isDefault()) {
-    sliderContainer.classList.add('hidden');
+    sliderContainerElement.classList.add('hidden');
   }
 };
 
@@ -46,14 +46,14 @@ const onFormChange = (evt) => {
 const onSliderUpdate = () => {
   previewImageElement.style.filter = 'none';
   previewImageElement.className = '';
-  effectLevelValue.value = '';
+  effectLevelValueElement.value = '';
   if(isDefault()){
     return;
   }
   const sliderValue = sliderElement.noUiSlider.get();
   previewImageElement.style.filter = `${chosenEffect.style}(${sliderValue}${chosenEffect.unit})`;
   previewImageElement.classList.add(`effects__preview--${chosenEffect.name}`);
-  effectLevelValue.value = sliderValue;
+  effectLevelValueElement.value = sliderValue;
 };
 
 const resetEffects = () => {
@@ -73,7 +73,7 @@ noUiSlider.create(sliderElement, {
 
 updateSlider();
 
-uploaFiledForm.addEventListener('change', onFormChange);
+uploaFormElement.addEventListener('change', onFormChange);
 sliderElement.noUiSlider.on('update', onSliderUpdate);
 
 export {resetEffects};
