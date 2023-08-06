@@ -1,5 +1,4 @@
 const ALER_SHOW_TIME = 5000;
-const FILE_TYPES = ['.apng', '.avif', '.gif', '.jpg', '.jpeg', '.jfif', '.pjpeg', '.pjp', '.png', '.svg', '.webp',];
 
 const checkStringLength = (string, length) => {
   if (string.length <= length) {
@@ -32,4 +31,4 @@ const showAlert = (message) => {
   }, ALER_SHOW_TIME);
 };
 
-export {isEscapeKey, showAlert, FILE_TYPES};
+export {isEscapeKey, showAlert};

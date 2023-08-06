@@ -1,9 +1,9 @@
 import {isEscapeKey} from './tools.js';
 
-const successMessage = document.querySelector('#success').content.querySelector('.success');
-const errorMessage = document.querySelector('#error').content.querySelector('.error');
-const successButton = successMessage.querySelector('.success__button');
-const errorButton = errorMessage.querySelector('.error__button');
+const successMessageElement = document.querySelector('#success').content.querySelector('.success');
+const errorMessageElement = document.querySelector('#error').content.querySelector('.error');
+const successButtonElement = successMessageElement.querySelector('.success__button');
+const errorButtonElement = errorMessageElement.querySelector('.error__button');
 
 
 let typeMessage;
@@ -29,17 +29,17 @@ function closeErrorSuccessPopup() {
 }
 
 const showSuccessMessagePopup = () => {
-  typeMessage = successMessage;
-  document.body.append(successMessage);
-  successButton.addEventListener('click', closeErrorSuccessPopup);
+  typeMessage = successMessageElement;
+  document.body.append(successMessageElement);
+  successButtonElement.addEventListener('click', closeErrorSuccessPopup);
   document.addEventListener('keydown', onErrorSussessPopupEscKeydown);
   document.addEventListener('click', onErrorSuccessPopupClose);
 };
 
 const showErrorMessagePopup = () => {
-  typeMessage = errorMessage;
-  document.body.append(errorMessage);
-  errorButton.addEventListener('click', closeErrorSuccessPopup);
+  typeMessage = errorMessageElement;
+  document.body.append(errorMessageElement);
+  errorButtonElement.addEventListener('click', closeErrorSuccessPopup);
   document.addEventListener('keydown', onErrorSussessPopupEscKeydown);
   document.addEventListener('click', onErrorSuccessPopupClose);
 };
